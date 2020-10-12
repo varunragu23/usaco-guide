@@ -1,7 +1,7 @@
 ---
 id: lis
 title: '(Optional) Longest Increasing Subsequence'
-author: Michael Cao, Benjamin Qi, Andi Qu, Andrew Wang
+author: Michael Cao, Benjamin Qi, Andi Qu, Andrew Wang, Brandon Wang
 prerequisites:
   - intro-dp
 description: Finding and using the LIS of an array
@@ -284,7 +284,7 @@ Luckily for us, there's a simple (though not so obvious) solution to this.
 
 This algorithm performs exactly the same steps as the algorithm to compute the length of the longest non-increasing subsequence, so it follows that they return the same result.
 
-*Proof:* Let $f_i$ denote the length of longest non-increasing subsequence ending at $A_i$. Then the $A_i$'s satisfying $f_i=t$ for a fixed $t$ are an increasing subsequence for each $t$. So we have covered $A$ with (size of longest non-increasing subsequence) increasing subsequences, done. 
+*Proof (Brandon Wang):* Let $f_i$ denote the length of the longest non-increasing subsequence ending at $A_i$. Then all $A_i$'s satisfying $f_i=t$ for a fixed $t$ are an increasing subsequence for each $t$. So we have covered $A$ with (size of longest non-increasing subsequence) increasing subsequences, done. 
 
 Do you see why this is equivalent to the sketch?
 
