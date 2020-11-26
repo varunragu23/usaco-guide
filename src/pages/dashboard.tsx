@@ -52,6 +52,7 @@ export default function DashboardPage(props: PageProps) {
     consecutiveVisits,
     onlineUsers,
     signIn,
+    isLoaded,
   } = React.useContext(UserDataContext);
 
   const lastViewedModuleURL = moduleIDToURLMap[lastViewedModuleID];
@@ -144,43 +145,38 @@ export default function DashboardPage(props: PageProps) {
       <div className="min-h-screen bg-gray-100 dark:bg-dark-surface">
         <TopNavigationBar linkLogoToIndex={true} />
 
+        {isLoaded && !firebaseUser && (
+          <div className="relative bg-gray-200">
+            <div className="max-w-7xl mx-auto py-2 px-3">
+              <div className="pr-16 sm:text-center sm:px-16">
+                <p className="">
+                  You're not signed in.
+                  <span className="block sm:ml-2 sm:inline-block">
+                    <a
+                      href="#"
+                      className="underline"
+                      onClick={e => {
+                        e.preventDefault();
+                        signIn();
+                      }}
+                    >
+                      Sign in now! <span aria-hidden="true">&rarr;</span>
+                    </a>
+                  </span>
+                </p>
+              </div>
+            </div>
+          </div>
+        )}
+
         <main className="pb-12">
           <div className="max-w-7xl mx-auto mb-4">
-            <div className="lg:px-8 pt-4 pb-6">
-              <div className="flex flex-wrap mb-4">
-                <div className="w-full text-center">
-                  {firebaseUser ? (
-                    <>
-                      Signed in as <i>{firebaseUser.email}</i>.
-                    </>
-                  ) : (
-                    <span>
-                      Not signed in.{' '}
-                      <a
-                        href="#"
-                        onClick={e => {
-                          e.preventDefault();
-                          signIn();
-                        }}
-                        className="text-blue-600 dark:text-blue-300 underline"
-                      >
-                        Sign in now!
-                      </a>{' '}
-                    </span>
-                  )}
-                </div>
-                {/*<div className="w-full md:w-1/2 text-center">*/}
-                {/*  {onlineUsers ? (*/}
-                {/*    <>*/}
-                {/*      {onlineUsers} user{onlineUsers == 1 ? '' : 's'} online.*/}
-                {/*    </>*/}
-                {/*  ) : null}*/}
-                {/*</div>*/}
-              </div>
+            <div className="lg:px-8 pt-6 pb-6">
               <div className="flex overflow-x-auto">
                 <WelcomeBackBanner
                   lastViewedModuleURL={lastViewedModuleURL}
                   lastViewedModuleLabel={moduleIDToName[lastViewedModuleID]}
+                  username={firebaseUser?.displayName}
                 />
               </div>
             </div>

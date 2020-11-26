@@ -4,6 +4,7 @@ import * as React from 'react';
 export default function WelcomeBackBanner({
   lastViewedModuleURL,
   lastViewedModuleLabel,
+  username,
 }) {
   return (
     <div className="bg-blue-700 dark:bg-blue-900 shadow hover:shadow-lg transition duration-150 ease-in-out lg:rounded-lg w-full">
@@ -14,7 +15,7 @@ export default function WelcomeBackBanner({
         <div>
           <h3 className="text-2xl leading-7 font-medium text-white dark:text-dark-high-emphasis">
             {lastViewedModuleURL
-              ? 'Welcome Back!'
+              ? `Welcome Back${username ? ', ' + username : ''}!`
               : 'Welcome to the USACO Guide!'}
           </h3>
           <div className="mt-2 leading-5 text-teal-200 dark:text-teal-300">
