@@ -7,23 +7,19 @@ author: Varun Ragunath
 
 [Official Analysis](http://www.usaco.org/current/data/sol_cbarn_bronze_feb16.html)
 
+## Implementation
+
 <LanguageSection>
 <CPPSection>
 
-## Implementation
-
 ```cpp
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
 
 int main() {
 	freopen("cbarn.in", "r", stdin);
 	freopen("cbarn.out", "w", stdout);
 	cin.sync_with_stdio(0); cin.tie(0);
-
-	// input
-
-	// have the number of cows and desired positions of each cow
 
 	int n;
 	cin >> n;
@@ -34,9 +30,7 @@ int main() {
 		cin >> cows[i];
 	}
 
-	// simple brute force
-
-	// check each possible barn we can open
+	// run a simple brute force algo, checking each possible barn we can open
 
 	int ret = (int)1e9; // stores the current answer
 	// initially set to an abnormally large number
@@ -51,13 +45,12 @@ int main() {
 			// index = open_barn + pos
 			curdist += pos * cows[(open_barn + pos) % n];
 		}
-		// update the answer
 		ret = min(ret, curdist);
 	}
 
-  	cout << ret << '\n';
+	cout << ret << '\n';
 
-  return 0;
+	return 0;
 }
 
 ```
@@ -66,24 +59,20 @@ int main() {
 	
 <JavaSection>
 	
-## Implementation	
-	
 ```java
 import java.io.*;
 import java.util.*;
 public class cbarn {
 	public static void main(String[] args) throws IOException {
-		// initialize file I/O
-		BufferedReader br = new BufferedReader(new FileReader("cbarn.in"));
-		PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter("cbarn.out")));
-		// read in N
-		int n = Integer.parseInt(br.readLine());
+		cbarn.Kattio io = new cbarn.Kattio("cbarn");
+		
+		int n = io.nextInt();
 		int[] cows = new int[n];
-		// read in how many cows need to be in each room
 		for(int i = 0; i < n; i++) {
-			cows[i] = Integer.parseInt(br.readLine());
+			cows[i] = io.nextInt();
 		}
-		// the answer cannot exceed N * N * 100, since there are at most 100N cows, each of which can move at most N
+		// the answer cannot exceed N * N * 100, 
+		// since there are at most 100N cows, each of which can move at most N
 		int ans = n * n * 100;
 		for(int unlock = 0; unlock < n; unlock++) {
 			// assume we unlock the door at index "unlock", compute the distance all cows travel
@@ -92,17 +81,12 @@ public class cbarn {
 				// count how many cows have to walk a distance of "offset"
 				currentDistance += offset * cows[(unlock+offset)%n];
 			}
-			// update the answer
-			if(currentDistance < ans) {
-				ans = currentDistance;
-			}
+			ans = Math.min(ans, currentDistance);
 		}
-		// print the answer
-		pw.println(ans);
-		// close output stream
-		pw.close();
-		br.close();
+		io.println(ans);
+		io.close();
 	}
+	CodeSnip{Kattio}
 }
 ```
 	
